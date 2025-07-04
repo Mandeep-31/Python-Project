@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam Questions</title>
+</head>
+<body>
+    <h1>Exam Question Bank</h1>
+
+    <form action="/add-question" method="POST">
+        <input type="text" name="subject" placeholder="Subject" required>
+        <input type="text" name="unit" placeholder="Unit" required>
+        <input type="number" name="year" placeholder="Year" required>
+        <input 
+        type="file" 
+        name="question_image" 
+        accept="image/*" 
+        required 
+        placeholder="Upload question image" 
+      />
+        <button type="submit">Add Question</button>
+    </form>
+
+    <ul>
+        {% for q in questions %}
+            <li>
+                <strong>{{ q.subject }}</strong> (Unit {{ q.unit }}, {{ q.year }})<br>
+{% if q.question_image %}
+    <img src="{{ url_for('static', filename='uploads/' ~ q.question_image) }}" alt="Question Image" style="max-width: 100%; height: auto;">
+{% else %}
+    <em>No question image available.</em>
+{% endif %}
+
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="/">← Back to Dashboard</a></p>
+</body>
+</html>

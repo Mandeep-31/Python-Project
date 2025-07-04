@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Past Exam Papers</title>
+</head>
+<body>
+    <h1>📄 Past Exam Papers</h1>
+
+    <form action="/add-paper" method="POST">
+        <input type="text" name="title" placeholder="Paper Title" required>
+        <input type="number" name="year" placeholder="Year" required>
+        <input type="url" name="link" placeholder="PDF Link (Google Drive, Dropbox, etc.)" required>
+        <button type="submit">Upload PDF</button>
+    </form>
+
+    <ul>
+        {% for paper in papers %}
+        <li>
+            {{ paper.year }} - <strong>{{ paper.title }}</strong>:
+            <a href="{{ paper.link }}" target="_blank">View PDF</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="/">← Back to Dashboard</a></p>
+</body>
+</html>

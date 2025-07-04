@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f2f4f8;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .resource-list {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+        }
+        a {
+            color: #2e86de;
+            text-decoration: none;
+        }
+        .nav-button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2e86de;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📁 Study Resources</h1>
+
+    <div class="resource-list">
+        {% if resources %}
+        <ul>
+            {% for res in resources %}
+                <li>
+                    <strong>{{ res.title }}</strong> ({{ res.type }}) —
+                    <a href="{{ res.link }}" target="_blank">Open</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No resources available yet.</p>
+        {% endif %}
+    </div>
+
+    <a href="/" class="nav-button">← Back to Dashboard</a>
+</body>
+</html>
