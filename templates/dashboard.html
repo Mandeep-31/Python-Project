@@ -51,11 +51,9 @@
     </style>
 </head>
 <body>
-
-    <h1>📚 EduMate Dashboard</h1>
-
+    <h1>EduMate Dashboard</h1>
     <div class="section">
-        <h2>🎯 Academic Goals</h2>
+        <h2>Academic Goals</h2>
         <form action="/add-goal" method="POST">
             <input type="text" name="description" placeholder="Your goal..." required>
             <input type="date" name="due_date" required>
@@ -66,9 +64,9 @@
                 <li>
                     {{ goal.description }} — Due: {{ goal.due_date }}
                     {% if goal.is_done %}
-                        ✅ Goal Achieved!
+                         Goal Achieved!
                     {% else %}
-                        🔄 <a href="/toggle-goal/{{ goal.id }}">Mark as Done</a>
+                         <a href="/toggle-goal/{{ goal.id }}">Mark as Done</a>
                     {% endif %}
                 </li>
             {% endfor %}
@@ -76,18 +74,16 @@
     </div>
 
     <div class="section">
-        <h2>📁 Study Resources</h2>
+        <h2>Study Resources</h2>
         <a href="/resources" class="nav-button">View Resources</a>
         <a href="/add-resource-form" class="nav-button">Add New Resource</a>
     </div>
-
     <div class="section">
-        <h2>📄 Past Exam Papers</h2>
+        <h2>Past Exam Papers</h2>
         <a href="/past-papers" class="nav-button">View Past Papers</a>
     </div>
-
     <div class="section">
-        <h2>🧠 Exam Questions</h2>
+        <h2>Exam Questions</h2>
         <a href="/exam-questions" class="nav-button">View Exam Questions</a>
     </div>
 
