@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Past Question Paper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input[type="text"], input[type="number"], input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #1e40af;
+        }
+        .btn-back {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 30px auto;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn-back:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Past Question Paper</h1>
+
+    <a class="btn-back" href="/past-papers">← Back to Papers List</a>
+
+    <form action="/add-paper" method="POST">
+        <input type="text" name="title" placeholder="Paper Title" required>
+        <input type="number" name="year" placeholder="Year" required>
+        <input type="url" name="link" placeholder="PDF Link (Google Drive or others)" required>
+        <input type="submit" value="Add Paper">
+    </form>
+</body>
+</html>

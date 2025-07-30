@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Past Question Papers</title>
+    <style>
+      /* Keep the same styles as before but remove form styling (optional to keep) */
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          padding: 20px;
+      }
+      h1 {
+          text-align: center;
+          color: #333;
+      }
+      table {
+          width: 90%;
+          margin: auto;
+          border-collapse: collapse;
+          background-color: #fff;
+          margin-top: 30px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      th, td {
+          padding: 12px 16px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+      }
+      th {
+          background-color: #007BFF;
+          color: white;
+      }
+      tr:hover {
+          background-color: #f1f1f1;
+      }
+      .btn-back {
+          display: block;
+          width: fit-content;
+          margin: 10px auto 30px auto;
+          padding: 10px 20px;
+          background-color: #28a745;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+      }
+      .btn-back:hover {
+          background-color: #218838;
+      }
+      .delete-button {
+          background-color: #dc3545;
+          color: white;
+          border: none;
+          padding: 6px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+      .delete-button:hover {
+          background-color: #c82333;
+      }
+    </style>
+</head>
+<body>
+    <h1>Past Question Papers</h1>
+
+    <a class="btn-back" href="/">← Back to Dashboard</a>
+    <a class="btn-back" href="/add-paper-form" style="background-color:#2563eb; margin-bottom: 15px;">➕ Upload New Paper</a>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Link</th>
+            <th>Action</th>
+        </tr>
+        {% for paper in papers %}
+        <tr>
+            <td>{{ paper.title }}</td>
+            <td>{{ paper.year }}</td>
+            <td><a href="{{ paper.link }}" target="_blank">View/Download</a></td>
+            <td>
+                <form action="{{ url_for('delete_paper', paper_id=paper.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this paper?');">
+                    <input type="submit" value="Delete" class="delete-button">
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4" style="text-align:center; color:#6b7280;">No papers found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
