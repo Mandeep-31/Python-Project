@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///edumate.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -13,14 +12,12 @@ class Resource(db.Model):
     title = db.Column(db.String(100), nullable=False)
     type = db.Column(db.String(50))
     link = db.Column(db.String(200))
-    added_on = db.Column(db.DateTime, default=datetime.utcnow)
-    
+    added_on = db.Column(db.DateTime, default=datetime.utcnow)  
 class Goal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(200), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
     due_date = db.Column(db.Date)
-
 class ExamQuestion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String(100))
@@ -32,21 +29,24 @@ class PastQuestionPDF(db.Model):
     title = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer)
     link = db.Column(db.String(300))
-# === Routes ===
 @app.route('/')
 def home():
-    goals = Goal.query.order_by(Goal.due_date).all()
+    # Pass summary info if needed (e.g., latest goals)
+    goals = Goal.query.order_by(Goal.due_date).limit(5).all()  # Show few recent goals on dashboard
     return render_template('dashboard.html', goals=goals)
+
+@app.route('/goals')
+def view_goals():
+    goals = Goal.query.order_by(Goal.due_date).all()
+    return render_template('view_goals.html', goals=goals)
 
 @app.route('/resources') 
 def view_resources():
     resources = Resource.query.order_by(Resource.added_on.desc()).all()
     return render_template('view_resources.html', resources=resources)
-
 @app.route('/add-resource-form')
 def add_resource_form():
     return render_template('add_resource.html')
-
 @app.route('/add-resource', methods=['POST'])
 def add_resource():
     title = request.form['title']
@@ -70,12 +70,14 @@ def toggle_goal(goal_id):
     goal.is_done = not goal.is_done
     db.session.commit()
     return redirect(url_for('home'))
+@app.route('/add-paper-form')
+def add_paper_form():
+    return render_template('add_paper.html')
 
 @app.route('/exam-questions')
 def exam_questions():
     questions = ExamQuestion.query.order_by(ExamQuestion.year.desc()).all()
     return render_template('questions.html', questions=questions)
-
 @app.route('/add-question', methods=['POST'])
 def add_question():
     subject = request.form['subject']
@@ -86,11 +88,10 @@ def add_question():
     db.session.add(q)
     db.session.commit()
     return redirect(url_for('exam_questions'))
-
 @app.route('/past-papers')
 def past_papers():
     papers = PastQuestionPDF.query.order_by(PastQuestionPDF.year.desc()).all()
-    return render_template('past_papers.html', papers=papers)
+    return render_template('view_papers.html', papers=papers)
 
 @app.route('/add-paper', methods=['POST'])
 def add_paper():
@@ -101,14 +102,12 @@ def add_paper():
     db.session.add(paper)
     db.session.commit()
     return redirect(url_for('past_papers'))
-
 @app.route('/delete-paper/<int:paper_id>', methods=['POST'])
 def delete_paper(paper_id):
     paper = PastQuestionPDF.query.get_or_404(paper_id)
     db.session.delete(paper)
     db.session.commit()
     return redirect(url_for('past_papers'))
-# === Run ===
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
