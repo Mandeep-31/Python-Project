@@ -497,7 +497,7 @@ form button:hover {
   align-items: center;
 }
 
-/* Footer */
+
 footer {
   background: white;
   padding: 40px;
@@ -526,7 +526,7 @@ footer {
 }
 
 
-/* Dashboard Card Specific Styles */
+
 .dashboard-card {
   background-color: #fff;
   padding: 30px;
@@ -534,7 +534,7 @@ footer {
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Pushes button group to bottom */
+  justify-content: space-between; 
 }
 
 .dashboard-card-header {
@@ -560,7 +560,7 @@ footer {
 .dashboard-card p {
   color: #64748b;
   margin-bottom: 20px;
-  flex-grow: 1; /* Allows paragraph to take available space */
+  flex-grow: 1; 
 }
 
 .dashboard-card form {
@@ -570,7 +570,7 @@ footer {
 .dashboard-card .btn-group {
   display: flex;
   gap: 10px;
-  margin-top: auto; /* Aligns to the bottom of the card */
+  margin-top: auto;
 }
 
 .dashboard-card .btn-group .btn {
